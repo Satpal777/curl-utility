@@ -1,0 +1,16 @@
+{
+  "name": "curl-utility",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "^5.2.1",
+    "marked": "^15.0.12",
+    "marked-terminal": "^7.3.0"
+  }
+}

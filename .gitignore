@@ -1,0 +1,57 @@
+# Node / Express
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Runtime / logs
+logs/
+*.log
+pids/
+*.pid
+*.seed
+*.pid.lock
+debug.log
+
+# Build / dist / coverage
+dist/
+build/
+out/
+coverage/
+.nyc_output/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+!.env.example
+
+# Package artifacts
+*.tgz
+package-lock.json.tmp
+
+# Caches
+.cache/
+.tmp/
+.parcel-cache/
+
+# IDEs / editors
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temporary / swap files
+*~
+*.swp
+*.swo
+
+# Secrets / keys
+*.pem
+*.key
+*.crt
