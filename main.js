@@ -1,39 +1,8 @@
 import express from "express";
 import { marked } from 'marked';
 import { markedTerminal } from 'marked-terminal';
-import { inject } from '@vercel/analytics';
 
 const app = express();
-
-// Vercel Web Analytics integration
-// For client-side tracking, we'll serve HTML responses with the analytics script
-const getHtmlTemplate = (content) => {
-  return `<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Chai & Blogs - Articles</title>
-  <style>
-    body {
-      font-family: monospace;
-      white-space: pre-wrap;
-      word-wrap: break-word;
-      padding: 20px;
-      background-color: #1e1e1e;
-      color: #d4d4d4;
-    }
-  </style>
-</head>
-<body>
-${content}
-  <script>
-    window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
-  </script>
-  <script defer src="/_vercel/insights/script.js"></script>
-</body>
-</html>`;
-};
 
 marked.use(markedTerminal({
   width: 100,
@@ -113,11 +82,9 @@ app.get('/', async (req, res) => {
     output += '-'.repeat(80) + '\n';
     output += `Blog: ${process.env.HASHNODE_FULL_URL}\n\n`;
 
-    // Wrap response with Vercel Web Analytics
-    res.setHeader('Content-Type', 'text/html; charset=utf-8');
-    res.send(getHtmlTemplate(`<pre>${output}</pre>`));
+    res.send(output);
   } catch (error) {
-    res.status(500).send(getHtmlTemplate('<pre>Error fetching articles.</pre>'));
+    res.status(500).send('Error fetching articles.');
   }
 });
 
@@ -168,7 +135,7 @@ app.get('/:slug', async (req, res) => {
     const post = await fetchPost(slug);
 
     if (!post) {
-      return res.status(404).send(getHtmlTemplate('<pre>\nError: Article not found.\n</pre>'));
+      return res.status(404).send('\nError: Article not found.\n');
     }
 
     const date = new Date(post.publishedAt).toDateString();
@@ -187,12 +154,10 @@ app.get('/:slug', async (req, res) => {
     output += '\n' + '-'.repeat(80) + '\n';
     output += `Read online: ${process.env.HASHNODE_FULL_URL}/${slug}\n\n`;
 
-    // Wrap response with Vercel Web Analytics
-    res.setHeader('Content-Type', 'text/html; charset=utf-8');
-    res.send(getHtmlTemplate(`<pre>${output}</pre>`));
+    res.send(output);
 
   } catch (error) {
-    res.status(500).send(getHtmlTemplate('<pre>Something went wrong fetching the article.</pre>'));
+    res.status(500).send('Something went wrong fetching the article.');
   }
 });
 
